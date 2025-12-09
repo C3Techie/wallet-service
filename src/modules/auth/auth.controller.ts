@@ -23,10 +23,13 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(GoogleAuthGuard)
-  @ApiOperation({ summary: 'Initiate Google OAuth login' })
+  @ApiOperation({
+    summary: 'Initiate Google OAuth login',
+    description: 'Open this endpoint in your browser to start Google sign-in. Do not use Swagger or API clients.\n\n[Click here to start Google OAuth](http://localhost:3000/api/v1/auth/google)'
+  })
   @ApiResponseDoc({
     status: HttpStatus.OK,
-    description: 'Redirects to Google OAuth',
+    description: 'Redirects to Google OAuth. This endpoint should be opened in a browser, not via Swagger or API clients.',
   })
   async google_auth() {
     // Guard redirects to Google
