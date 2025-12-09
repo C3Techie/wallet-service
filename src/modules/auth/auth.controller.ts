@@ -34,7 +34,9 @@ export class AuthController {
   @ApiOperation({
     summary: 'Initiate Google OAuth login',
     description:
-      'Open this endpoint in your browser to start Google sign-in. Do not use Swagger or API clients.\n\n[Click here to start Google OAuth](https://wallet-service-nggx.onrender.com/api/v1/auth/google)',
+      'Open this endpoint in your browser to start Google sign-in. Do not use Swagger or API clients.\n\n' +
+      '[Click here to start Google OAuth (Production)](https://wallet-service-nggx.onrender.com/api/v1/auth/google)\n\n' +
+      '[Click here to start Google OAuth (Localhost)](http://localhost:3000/api/v1/auth/google)',
   })
   @ApiResponseDoc({
     status: HttpStatus.OK,
