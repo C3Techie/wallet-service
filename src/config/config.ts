@@ -1,6 +1,7 @@
 export default () => ({
   env: process.env.NODE_ENV,
   port: parseInt(process.env.PORT ?? '3008', 10),
+  baseUrl: process.env.BASE_URL || 'http://localhost:3000',
   app: {
     name: process.env.APP_NAME || 'Wallet Service',
     slug: process.env.APP_SLUG,
