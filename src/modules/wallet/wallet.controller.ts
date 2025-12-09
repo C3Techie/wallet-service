@@ -29,7 +29,6 @@ import {
   BalanceResponseDto,
   TransferResponseDto,
   TransactionStatusResponseDto,
-  TransactionHistoryDto,
 } from './dtos';
 import { JwtOrApiKeyGuard } from '../../common/guards';
 import { User } from '../auth/entities/user.entity';

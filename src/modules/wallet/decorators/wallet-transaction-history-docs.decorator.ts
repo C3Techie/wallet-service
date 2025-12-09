@@ -44,6 +44,6 @@ export function WalletTransactionHistoryDocs() {
       status: HttpStatus.OK,
       description: 'Transaction history retrieved successfully',
       type: [TransactionHistoryDto],
-    })
+    }),
   );
 }

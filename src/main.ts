@@ -85,7 +85,9 @@ async function bootstrap() {
 
   await app.listen(port);
 
-  console.log(`\n------------\nWallet Service Started!\nEnvironment: ${env}\nAPI: http://localhost:${port}/${globalPrefix}\nAPI Docs: http://localhost:${port}/docs\n------------\n`);
+  console.log(
+    `\n------------\nWallet Service Started!\nEnvironment: ${env}\nAPI: http://localhost:${port}/${globalPrefix}\nAPI Docs: http://localhost:${port}/docs\n------------\n`,
+  );
 }
 
 bootstrap().catch((error) => {

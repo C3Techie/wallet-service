@@ -21,7 +21,6 @@ import {
   CreateApiKeyDto,
   RolloverApiKeyDto,
   ApiKeyResponseDto,
-  ApiKeyListItemDto,
 } from './dtos';
 import { JwtAuthGuard } from '../auth/guards';
 import { User } from '../auth/entities/user.entity';

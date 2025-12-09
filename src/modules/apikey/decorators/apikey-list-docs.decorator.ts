@@ -37,6 +37,6 @@ export function ApiKeyListDocs() {
       status: HttpStatus.OK,
       description: 'API keys retrieved successfully',
       type: [ApiKeyListItemDto],
-    })
+    }),
   );
 }
