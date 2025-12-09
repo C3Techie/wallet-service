@@ -17,11 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { ApiKeyListDocs } from './decorators/apikey-list-docs.decorator';
 import { ApikeyService } from './apikey.service';
-import {
-  CreateApiKeyDto,
-  RolloverApiKeyDto,
-  ApiKeyResponseDto,
-} from './dtos';
+import { CreateApiKeyDto, RolloverApiKeyDto, ApiKeyResponseDto } from './dtos';
 import { JwtAuthGuard } from '../auth/guards';
 import { User } from '../auth/entities/user.entity';
 
