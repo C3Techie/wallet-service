@@ -268,6 +268,9 @@ export class WalletService {
         data: {
           status: 'success',
           message: sysMsg.TRANSFER_SUCCESSFUL,
+          sender_wallet_number: sender_wallet.wallet_number,
+          recipient_wallet_number: recipient_wallet.wallet_number,
+          reference,
         },
       };
     } catch (error) {
@@ -371,13 +374,20 @@ export class WalletService {
     const transactions: TransactionHistoryDto[] = paginatedTransactions.map(
       (txn) => {
         let directionValue = '';
+        let sender_wallet_number: string | undefined;
+        let recipient_wallet_number: string | undefined;
+
         if (txn.type === 'deposit') {
           directionValue = 'deposit';
         } else if (txn.type === 'transfer') {
           if (txn.wallet && txn.wallet.id === wallet.id) {
+            // Sent transfer
             directionValue = 'sent';
+            recipient_wallet_number = txn.recipient_wallet_number || undefined;
           } else if (txn.recipient_wallet_number === wallet.wallet_number) {
+            // Received transfer
             directionValue = 'received';
+            sender_wallet_number = txn.wallet ? txn.wallet.wallet_number : undefined;
           }
         }
         return {
@@ -387,6 +397,8 @@ export class WalletService {
           direction: directionValue,
           reference: txn.reference,
           timestamp: txn.created_at,
+          sender_wallet_number,
+          recipient_wallet_number,
         };
       },
     );
