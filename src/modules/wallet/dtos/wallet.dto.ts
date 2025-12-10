@@ -44,6 +44,15 @@ export class TransferResponseDto {
 
   @ApiProperty({ description: 'Transfer message' })
   message: string;
+
+  @ApiProperty({ description: 'Sender wallet number' })
+  sender_wallet_number: string;
+
+  @ApiProperty({ description: 'Recipient wallet number' })
+  recipient_wallet_number: string;
+
+  @ApiProperty({ description: 'Transaction reference' })
+  reference: string;
 }
 
 export class TransactionStatusResponseDto {
@@ -77,4 +86,10 @@ export class TransactionHistoryDto {
 
   @ApiProperty({ description: 'Transaction timestamp' })
   timestamp: Date;
+
+  @ApiProperty({ description: 'Sender wallet number (for received transfers)', required: false })
+  sender_wallet_number?: string;
+
+  @ApiProperty({ description: 'Recipient wallet number (for sent transfers)', required: false })
+  recipient_wallet_number?: string;
 }
