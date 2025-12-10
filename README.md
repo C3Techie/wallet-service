@@ -108,6 +108,8 @@ Once the server is running, visit `http://localhost:3000/docs` for interactive A
 **GET** `/api/v1/auth/google` - Initiate Google OAuth login
 **GET** `/api/v1/auth/google/callback` - Google OAuth callback
 
+> **Note:** When a user signs in with Google for the first time, a wallet is automatically created for them. The authentication response includes both user and wallet details, confirming wallet creation.
+
 ### API Keys
 
 **POST** `/api/v1/keys/create` - Create a new API key (max 5 active keys)
@@ -251,7 +253,7 @@ src/
 - Permission-based access control
 
 ### Wallet Operations
-- Auto-create wallet on first deposit
+- Auto-create wallet on first Google sign-in
 - Unique wallet numbers (13 digits)
 - Atomic transfers with balance validation
 - Transaction reference tracking
