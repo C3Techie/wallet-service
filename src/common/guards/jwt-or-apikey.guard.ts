@@ -60,7 +60,7 @@ export class JwtOrApiKeyGuard implements CanActivate {
         // Check if API key has required permission
         if (required_permission && validation.permissions) {
           if (!validation.permissions.includes(required_permission)) {
-            throw new ForbiddenException(INSUFFICIENT_PERMISSIONS);
+            throw new ForbiddenException(INSUFFICIENT_PERMISSIONS(required_permission));
           }
         }
 

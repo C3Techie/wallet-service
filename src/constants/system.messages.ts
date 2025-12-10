@@ -74,7 +74,10 @@ export const API_KEY_ROLLED_OVER = 'API key rolled over successfully.';
 export const API_KEY_NOT_EXPIRED =
   'API key has not expired yet. Cannot rollover.';
 export const INSUFFICIENT_PERMISSIONS =
-  'API key does not have required permissions.';
+  (permission?: string) =>
+    permission
+      ? `API key does not have required permission: ${permission}.`
+      : 'API key does not have required permissions.';
 export const INVALID_EXPIRY_FORMAT =
   'Invalid expiry format. Use 1H, 1D, 1M, or 1Y.';
 export const API_KEYS_RETRIEVED = 'API keys retrieved successfully.';
