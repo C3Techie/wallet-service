@@ -11,6 +11,7 @@ export function WalletTransactionHistoryDocs() {
       type: Number,
       description: 'Page number',
       example: 1,
+      default: 1,
     }),
     ApiQuery({
       name: 'limit',
@@ -18,6 +19,7 @@ export function WalletTransactionHistoryDocs() {
       type: Number,
       description: 'Items per page',
       example: 20,
+      default: 20,
     }),
     ApiQuery({
       name: 'type',
@@ -25,6 +27,8 @@ export function WalletTransactionHistoryDocs() {
       type: String,
       description: 'Filter by transaction type (deposit, transfer)',
       example: 'deposit',
+      enum: ['deposit', 'transfer'],
+      default: 'deposit',
     }),
     ApiQuery({
       name: 'status',
@@ -32,6 +36,8 @@ export function WalletTransactionHistoryDocs() {
       type: String,
       description: 'Filter by status (success, failed, pending)',
       example: 'success',
+      enum: ['success', 'failed', 'pending'],
+      default: 'success',
     }),
     ApiQuery({
       name: 'direction',
@@ -39,6 +45,8 @@ export function WalletTransactionHistoryDocs() {
       type: String,
       description: 'Filter by direction (sent, received, deposit)',
       example: 'received',
+      enum: ['sent', 'received', 'deposit'],
+      default: 'received',
     }),
     ApiResponse({
       status: HttpStatus.OK,

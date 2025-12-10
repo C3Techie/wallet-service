@@ -32,7 +32,7 @@ export class AuthController {
   @Get('google')
   @UseGuards(GoogleAuthGuard)
   @ApiOperation({
-    summary: 'Initiate Google OAuth login',
+    summary: 'Initiate Google OAuth login (must be opened in a browser, not Swagger or API clients)',
     description:
       'Open this endpoint in your browser to start Google sign-in. Do not use Swagger or API clients.\n\n' +
       '[Click here to start Google OAuth (Production)](https://wallet-service-nggx.onrender.com/api/v1/auth/google)\n\n' +
@@ -43,13 +43,20 @@ export class AuthController {
     description:
       'Redirects to Google OAuth. This endpoint should be opened in a browser, not via Swagger or API clients.',
   })
-  async google_auth() {
+  async google_auth(@Res() res: Response) {
     // Guard redirects to Google
+    return res.status(HttpStatus.BAD_REQUEST).json({
+      message:
+        'This endpoint must be opened in a browser. It will not work from Swagger or API clients.',
+    });
   }
 
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  @ApiOperation({ summary: 'Google OAuth callback' })
+  @ApiOperation({
+    summary: 'Google OAuth callback (returns JWT token, user, and wallet details after successful sign-in)',
+    description: 'This endpoint is called by Google after authentication. It returns a JWT token, user info, and wallet details. Should not be called directly by users.'
+  })
   @ApiResponseDoc({
     status: HttpStatus.OK,
     description: 'Returns JWT token and user data',

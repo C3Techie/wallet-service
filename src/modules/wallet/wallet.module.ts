@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Wallet } from './entities/wallet.entity';
 import { Transaction } from '../transaction/entities/transaction.entity';
@@ -16,7 +16,7 @@ import { User } from '../auth/entities/user.entity';
     TypeOrmModule.forFeature([Wallet, Transaction, User]),
     PaystackModule,
     ApikeyModule,
-    AuthModule,
+    forwardRef(() => AuthModule),
   ],
   controllers: [WalletController],
   providers: [WalletService, WalletModelAction, TransactionModelAction],

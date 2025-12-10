@@ -9,6 +9,7 @@ import { ApiKeyModelAction } from './model-actions';
 import {
   CreateApiKeyDto,
   RolloverApiKeyDto,
+  RevokeApiKeyDto,
   ApiKeyResponseDto,
   ApiKeyExpiry,
 } from './dtos';
@@ -147,6 +148,39 @@ export class ApikeyService {
         api_key: new_api_key,
         expires_at: new_expires_at,
       },
+    };
+  }
+
+  async revoke_api_key(
+    user: User,
+    revoke_dto: RevokeApiKeyDto,
+  ): Promise<ApiResponse<null>> {
+    // Find the API key
+    const api_key = await this.api_key_model_action.get({
+      identifier_options: {
+        id: revoke_dto.key_id,
+        user: { id: user.id },
+      } as never,
+    });
+
+    if (!api_key) {
+      throw new NotFoundException(sysMsg.API_KEY_NOT_FOUND);
+    }
+
+    // Check if already revoked
+    if (api_key.revoked) {
+      throw new BadRequestException(sysMsg.API_KEY_REVOKED);
+    }
+
+    // Revoke the key
+    await this.api_key_model_action.update({
+      identifier_options: { id: api_key.id } as never,
+      update_payload: { revoked: true },
+    });
+
+    return {
+      message: sysMsg.API_KEY_REVOKED,
+      data: null,
     };
   }
 

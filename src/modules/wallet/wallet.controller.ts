@@ -61,7 +61,10 @@ export class WalletController {
   @Post('paystack/webhook')
   @SkipWrap()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Handle Paystack webhook events' })
+  @ApiOperation({
+    summary: 'Handle Paystack webhook events (for Paystack server use only, not for manual/API client calls)',
+    description: 'This endpoint processes incoming webhook events from Paystack. It should only be called by Paystack, not manually or via API clients.'
+  })
   @ApiHeader({ name: 'x-paystack-signature', required: true })
   @ApiResponseDoc({
     status: HttpStatus.OK,

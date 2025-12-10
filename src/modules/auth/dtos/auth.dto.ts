@@ -28,6 +28,17 @@ export class UserResponseDto {
   updated_at: Date;
 }
 
+export class WalletResponseDto {
+  @ApiProperty({ description: 'Wallet ID' })
+  id: string;
+
+  @ApiProperty({ description: 'Wallet number' })
+  wallet_number: string;
+  
+  @ApiProperty({ description: 'Created at timestamp' })
+  created_at: Date;
+}
+
 export class AuthResponseDto {
   @ApiProperty({ description: 'JWT access token' })
   access_token: string;
@@ -37,4 +48,7 @@ export class AuthResponseDto {
 
   @ApiProperty({ description: 'User data', type: UserResponseDto })
   user: UserResponseDto;
+
+  @ApiProperty({ description: 'Wallet data', type: WalletResponseDto })
+  wallet: WalletResponseDto;
 }

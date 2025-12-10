@@ -1,9 +1,10 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Inject, forwardRef } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { UserModelAction } from './model-actions';
 import { AuthResponseDto, UserResponseDto } from './dtos';
 import { User } from './entities/user.entity';
+import { WalletService } from '../wallet/wallet.service';
 import * as sysMsg from '../../constants/system.messages';
 import { ApiResponse } from '../../common/interfaces';
 
@@ -13,6 +14,8 @@ export class AuthService {
     private user_model_action: UserModelAction,
     private jwt_service: JwtService,
     private config_service: ConfigService,
+    @Inject(forwardRef(() => WalletService))
+    private wallet_service: WalletService,
   ) {}
 
   async google_login(google_user: {
@@ -39,6 +42,9 @@ export class AuthService {
         });
       }
 
+      // Ensure user has a wallet
+      const wallet = await this.wallet_service.get_or_create_wallet(user);
+
       // Generate JWT token
       const payload = { sub: user.id, email: user.email };
       const access_token = this.jwt_service.sign(payload);
@@ -52,12 +58,19 @@ export class AuthService {
         updated_at: user.updated_at,
       };
 
+      const wallet_response = {
+        id: wallet.id,
+        wallet_number: wallet.wallet_number,
+        created_at: wallet.created_at,
+      };
+
       return {
         message: sysMsg.GOOGLE_AUTH_SUCCESS,
         data: {
           access_token,
           token_type: 'Bearer',
           user: user_response,
+          wallet: wallet_response,
         },
       };
     } catch (error) {

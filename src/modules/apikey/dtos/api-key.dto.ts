@@ -66,6 +66,16 @@ export class RolloverApiKeyDto {
   expiry: ApiKeyExpiry;
 }
 
+export class RevokeApiKeyDto {
+  @ApiProperty({
+    description: 'ID of the API key to revoke',
+    example: 'FGH2485K6KK79GKG9GKGK',
+  })
+  @IsString()
+  @IsNotEmpty()
+  key_id: string;
+}
+
 export class ApiKeyResponseDto {
   @ApiProperty({ description: 'API key ID' })
   id: string;

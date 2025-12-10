@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -8,11 +8,13 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UserModelAction } from './model-actions';
 import { GoogleStrategy, JwtStrategy } from './strategies';
+import { WalletModule } from '../wallet/wallet.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     PassportModule,
+    forwardRef(() => WalletModule),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

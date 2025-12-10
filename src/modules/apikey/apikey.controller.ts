@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { ApiKeyListDocs } from './decorators/apikey-list-docs.decorator';
 import { ApikeyService } from './apikey.service';
-import { CreateApiKeyDto, RolloverApiKeyDto, ApiKeyResponseDto } from './dtos';
+import { CreateApiKeyDto, RolloverApiKeyDto, RevokeApiKeyDto, ApiKeyResponseDto } from './dtos';
 import { JwtAuthGuard } from '../auth/guards';
 import { User } from '../auth/entities/user.entity';
 
@@ -56,6 +56,20 @@ export class ApikeyController {
     @Body() rollover_dto: RolloverApiKeyDto,
   ) {
     return this.apikey_service.rollover_api_key(req.user, rollover_dto);
+  }
+
+  @Post('revoke')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Revoke an API key' })
+  @ApiResponseDoc({
+    status: HttpStatus.OK,
+    description: 'API key revoked successfully',
+  })
+  async revoke_api_key(
+    @Req() req: { user: User },
+    @Body() revoke_dto: RevokeApiKeyDto,
+  ) {
+    return this.apikey_service.revoke_api_key(req.user, revoke_dto);
   }
 
   @Get()
